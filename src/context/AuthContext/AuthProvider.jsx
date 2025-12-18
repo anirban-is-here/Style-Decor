@@ -9,6 +9,7 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
+import api from "../../services/api";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -42,12 +43,30 @@ const AuthProvider = ({ children }) => {
 
   // observe auth state change
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setLoading(true);
+      if (currentUser) {
+        setUser(currentUser);
+
+        // 1️⃣ send email to backend to get JWT
+        try {
+          const res = await api.post("/auth/jwt", {
+            email: currentUser.email,
+          });
+          localStorage.setItem("access-token", res.data.token);
+        } catch (err) {
+          console.error("Failed to get JWT from backend", err);
+        }
+      } else {
+        setUser(null);
+        localStorage.removeItem("access-token");
+      }
       setLoading(false);
     });
+
     return () => unsubscribe();
   }, []);
+
 
   const authInfo = {
     registerUser,
