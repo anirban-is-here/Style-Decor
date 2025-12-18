@@ -1,9 +1,11 @@
 import React from "react";
-import logo from "../../src/assets/logo.png";
+
 import { Link, Navigate, NavLink } from "react-router";
-import { IoArrowUpOutline } from "react-icons/io5";
-import UseAuth from "../../../hooks/UseAuth";
+
+
 import Swal from "sweetalert2";
+import UseAuth from "../hooks/UseAuth";
+import Logo from "./Logo";
 
 const Navbar = () => {
   const { user, loading, signOutUser } = UseAuth();
@@ -38,9 +40,9 @@ const Navbar = () => {
       });
   };
   const activeClass =
-    "px-4 py-2 rounded-full bg-primary text-black mr-2 transition-all duration-300 ease-in-out";
+    "px-4 py-2 rounded-full bg-primary mr-2 transition-all duration-300 ease-in-out";
   const normalClass =
-    "px-4 py-2 rounded-full text-gray-600 hover:text-black mr-2 transition-all duration-300 ease-in-out";
+    "px-4 py-2 rounded-full text-secondary hover:text-black mr-2 transition-all duration-300 ease-in-out";
 
   const links = (
     <>
@@ -49,7 +51,7 @@ const Navbar = () => {
           to="/"
           className={({ isActive }) => (isActive ? activeClass : normalClass)}
         >
-          Services
+          Home
         </NavLink>
       </li>
       <li>
@@ -57,7 +59,7 @@ const Navbar = () => {
           to="/coverage"
           className={({ isActive }) => (isActive ? activeClass : normalClass)}
         >
-          Coverage
+          Services
         </NavLink>
       </li>
       <li>
@@ -65,7 +67,7 @@ const Navbar = () => {
           to="/about"
           className={({ isActive }) => (isActive ? activeClass : normalClass)}
         >
-          About Us
+          About 
         </NavLink>
       </li>
       <li>
@@ -73,48 +75,17 @@ const Navbar = () => {
           to="/pricing"
           className={({ isActive }) => (isActive ? activeClass : normalClass)}
         >
-          Pricing
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/blog"
-          className={({ isActive }) => (isActive ? activeClass : normalClass)}
-        >
-          Blog
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) => (isActive ? activeClass : normalClass)}
-        >
           Contact
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/raider"
-          className={({ isActive }) => (isActive ? activeClass : normalClass)}
-        >
-          Be a Raider
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/sendParcel"
-          className={({ isActive }) => (isActive ? activeClass : normalClass)}
-        >
-          Send Parcel
-        </NavLink>
-      </li>
+    
       {user && (
         <li>
           <NavLink
             to="/parcels"
             className={({ isActive }) => (isActive ? activeClass : normalClass)}
           >
-            My Parcels
+            Dashboard
           </NavLink>
         </li>
       )}
@@ -152,9 +123,7 @@ const Navbar = () => {
         </div>
 
         {/* Logo */}
-              <div className="logo">
-                  <img src={logo} alt="" />
-        </div>
+        <Logo></Logo>
       </div>
 
       {/* Navbar Center */}
@@ -192,15 +161,15 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            <Link to={"/login"} className="btn rounded-lg">
+            <Link to={"/login"} className="btn rounded-lg font-bold text-lg">
               Sign In
             </Link>
-            <Link to={"/register"} className="btn rounded-lg btn-primary">
+            <Link
+              to={"/register"}
+              className="btn rounded-lg btn-primary text-secondary font-bold text-lg "
+            >
               Sign Up
             </Link>
-            <div className="rotate-45 rounded-full h-10 w-10 text-primary flex items-center justify-center text-2xl bg-secondary">
-              <IoArrowUpOutline />
-            </div>
           </>
         )}
       </div>

@@ -8,14 +8,16 @@
   
 
   
-
-}
+  --color-primary: #8A5A44;
+  --color-primary-content: #6B625A;
+  --color-secondary: #1F1B17;
+  
 
 body {
   font-family: "Urbanist", sans-serif;
   font-optical-sizing: auto;
 
   font-style: normal;
-  
+  background-color:  ;
   padding-top: 20px
 }
