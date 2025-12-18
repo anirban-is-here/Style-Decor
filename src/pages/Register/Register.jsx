@@ -6,6 +6,7 @@ import UseAuth from "../../hooks/UseAuth";
 import Swal from "sweetalert2";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import axios from "axios";
+import api from "../../services/api";
 
 const Register = () => {
   const {
@@ -47,8 +48,8 @@ const Register = () => {
                   role: "User", // default role
                 };
 
-                axios
-                  .post("http://localhost:5000/api/users", newUser)
+                api
+                  .post("/api/users", newUser)
                   .then(() => {
                     // now backend has the user
                     console.log("User saved in backend");

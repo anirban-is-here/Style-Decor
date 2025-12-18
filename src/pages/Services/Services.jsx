@@ -10,7 +10,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await api.get("/services");
+        const res = await api.get("/api/services");
         console.log(res.data); // <-- check her
         setServices(res.data);
       } catch (err) {

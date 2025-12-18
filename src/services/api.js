@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL:
-    "https://style-decor-server-anirban-1h3q39drc-anirbans-projects-eaad6de9.vercel.app/api",
+    "https://style-decor-server-anirban-n2vvn98fo-anirbans-projects-eaad6de9.vercel.app",
 });
 
 api.interceptors.request.use((config) => {

@@ -24,7 +24,7 @@ const SocialLogin = () => {
       const loggedInUser = result.user;
 
       // Send user info to your deployed backend
-      const res = await api.post("/auth/google-login", {
+      const res = await api.post("/api/auth/google-login", {
         name: loggedInUser.displayName,
         email: loggedInUser.email,
       });
