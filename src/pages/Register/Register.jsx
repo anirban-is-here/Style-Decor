@@ -39,7 +39,21 @@ const Register = () => {
             photoURL: res.data.data.display_url,
           })
             .then(() => {
-              // profile updated
+                // profile updated
+                const newUser = {
+                  name: data.name,
+                  email: data.email,
+                  photoURL: res.data.data.display_url,
+                  role: "User", // default role
+                };
+
+                axios
+                  .post("http://localhost:5000/api/users", newUser)
+                  .then(() => {
+                    // now backend has the user
+                    console.log("User saved in backend");
+                  })
+                  .catch((err) => console.log("Backend save failed", err));
             })
             .catch((err) => console.log(err));
         })

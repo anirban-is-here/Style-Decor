@@ -21,34 +21,37 @@ const SocialLogin = () => {
       didOpen: () => Swal.showLoading(),
     });
 
-    signInWithGoogle()
-      .then((result) => {
-        const loggedInUser = result.user;
-        setLoading(false);
-        console.log(loggedInUser);
-        Swal.close();
+    signInWithGoogle().then(async (result) => {
+      const loggedInUser = result.user;
 
-        Swal.fire({
-          icon: "success",
-          title: "Login Successful!",
-          text: `Welcome ${loggedInUser.displayName || "User"}!`,
-          timer: 1500,
-          showConfirmButton: false,
-        }).then(() => {
-          navigate(from, { replace: true }); // redirect to home
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-        Swal.close();
-        Swal.fire({
-          icon: "error",
-          title: "Login Failed",
-          text: error.message.slice(22, -2),
-          confirmButtonText: "Try Again",
-          confirmButtonColor: "#dc2626",
-        });
+      const userInfo = {
+        name: loggedInUser.displayName,
+        email: loggedInUser.email,
+      };
+
+      const res = await fetch("http://localhost:5000/api/auth/google-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userInfo),
       });
+
+      const data = await res.json();
+
+      localStorage.setItem("token", data.token); // store JWT
+
+      Swal.close();
+
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful!",
+        text: `Welcome ${loggedInUser.displayName || "User"}!`,
+        timer: 1500,
+        showConfirmButton: false,
+      }).then(() => {
+          setLoading(false)
+        navigate(from, { replace: true });
+      });
+    });
   };
 
   return (
